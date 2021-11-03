@@ -749,7 +749,7 @@ Here is another example of using `traverse`-like method:
 const getUserPreferences = (userId: UserID) => TaskEither<UserNotFound, UserPreferences>
 const userIds = [userId, anotherUserId, thirdUserId];
 
-const result = TaskEither.traverseArray(
+const result = TaskEither.traverseSeqArray(  // use TaskEither.traverseArray if you want to run the Tasks in parallel
     getUserPreferences
   )(userIds)
 // result is TaskEither<string, UserPreferences[]>
@@ -779,6 +779,9 @@ Note that the following functions have the same logic:
 ```
 Task.traverseArray === ReadonlyArray.traverse(Task.ApplicativePar)
 TaskEither.traverseArray === ReadonlyArray.traverse(TaskEither.ApplicativePar)
+
+Task.traverseSeqArray === ReadonlyArray.traverse(Task.ApplicativeSeq)
+TaskEither.traverseSeqArray === ReadonlyArray.traverse(TaskEither.ApplicativeSeq)
 ```
 
 You can futher explore the above code by pasting [this snippet](https://pastebin.com/39psQsaN) in a [code sandbox](https://codesandbox.io).
